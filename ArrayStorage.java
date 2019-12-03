@@ -38,20 +38,20 @@ public class ArrayStorage {
 
     void delete(String uuid) {
         int index = -1;
-        boolean uuidFound=false;
+        boolean uuidFound = false;
         for (int i = 0; i < currentSize; i++) {
             if (storage[i].uuid == uuid) {
                 index = i;
-                uuidFound=true;
+                uuidFound = true;
             }
         }
-        if(uuidFound) {
+        if (uuidFound) {
             for (int i = index; i < currentSize; i++) {
                 storage[i] = storage[i + 1];
             }
             currentSize--;
-        } else{
-            System.out.println(uuid+" is not found");
+        } else {
+            System.out.println(uuid + " is not found");
         }
     }
 
