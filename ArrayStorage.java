@@ -6,11 +6,6 @@ public class ArrayStorage {
     private int currentSize = 0;
     Resume[] storage = new Resume[SIZE];
 
-//    void isFound(){
-//        boolean isFound=false;
-//
-//    }
-
     void clear() {
         for (int i = 0; i < currentSize; i++) {
             storage[i] = null;
@@ -20,7 +15,6 @@ public class ArrayStorage {
 
     void save(Resume r) {
         boolean notFound = true;
-
         for (int i = 0; i < currentSize; i++) {
             if (storage[i].uuid.equals(r.uuid)) {
                 notFound = false;
