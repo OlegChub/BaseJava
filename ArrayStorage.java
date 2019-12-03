@@ -4,7 +4,12 @@
 public class ArrayStorage {
     final private static int SIZE = 10000;
     private int currentSize = 0;
-    final private Resume[] storage = new Resume[SIZE];
+    Resume[] storage = new Resume[SIZE];
+
+//    void isFound(){
+//        boolean isFound=false;
+//
+//    }
 
     void clear() {
         for (int i = 0; i < currentSize; i++) {
@@ -14,8 +19,18 @@ public class ArrayStorage {
     }
 
     void save(Resume r) {
-        storage[currentSize] = r;
-        currentSize++;
+        boolean notFound = true;
+
+        for (int i = 0; i < currentSize; i++) {
+            if (storage[i].uuid.equals(r.uuid)) {
+                notFound = false;
+                System.out.println(r + " was already added to the system");
+            }
+        }
+        if (notFound) {
+            storage[currentSize] = r;
+            currentSize++;
+        }
     }
 
     Resume get(String uuid) {
@@ -29,15 +44,21 @@ public class ArrayStorage {
 
     void delete(String uuid) {
         int index = -1;
+        boolean uuidFound=false;
         for (int i = 0; i < currentSize; i++) {
             if (storage[i].uuid == uuid) {
                 index = i;
+                uuidFound=true;
             }
         }
-        for (int i = index; i < currentSize; i++) {
-            storage[i] = storage[i + 1];
+        if(uuidFound) {
+            for (int i = index; i < currentSize; i++) {
+                storage[i] = storage[i + 1];
+            }
+            currentSize--;
+        } else{
+            System.out.println(uuid+" is not found");
         }
-        currentSize--;
     }
 
     /**
@@ -54,5 +75,4 @@ public class ArrayStorage {
     int size() {
         return currentSize;
     }
-
 }
