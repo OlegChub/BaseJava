@@ -6,7 +6,7 @@ import com.urise.webapp.model.Resume;
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    final private static int SIZE = 10000;
+    final private static int SIZE = 3;
     private int currentSize = 0;
     private Resume[] storage = new Resume[SIZE];
 
@@ -18,14 +18,14 @@ public class ArrayStorage {
     }
 
     public void save(Resume r) {
-        boolean notFound = true;
+        boolean isExist = false;
         for (int i = 0; i < currentSize; i++) {
             if (storage[i].getUuid().equals(r.getUuid())) {
-                notFound = false;
+                isExist = true;
                 System.out.println(r + " was already added to the system");
             }
         }
-        if (notFound) {
+        if (isExist == false) {
             storage[currentSize] = r;
             currentSize++;
         }
@@ -42,17 +42,18 @@ public class ArrayStorage {
 
     public void delete(String uuid) {
         int index = -1;
-        boolean uuidFound = false;
+        boolean isExist = false;
         for (int i = 0; i < currentSize; i++) {
             if (storage[i].getUuid() == uuid) {
                 index = i;
-                uuidFound = true;
+                isExist = true;
             }
         }
-        if (uuidFound) {
-            for (int i = index; i < currentSize; i++) {
+        if (isExist) {
+            for (int i = index; i < currentSize - 1; i++) {
                 storage[i] = storage[i + 1];
             }
+            storage[currentSize - 1] = null;
             currentSize--;
         } else {
             System.out.println(uuid + " is not found");
