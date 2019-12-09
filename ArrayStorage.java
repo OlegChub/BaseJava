@@ -1,22 +1,26 @@
+package com.urise.webapp.storage;
+
+import com.urise.webapp.model.Resume;
+
 /**
  * Array based storage for Resumes
  */
 public class ArrayStorage {
     final private static int SIZE = 10000;
     private int currentSize = 0;
-    Resume[] storage = new Resume[SIZE];
+    private Resume[] storage = new Resume[SIZE];
 
-    void clear() {
+    public void clear() {
         for (int i = 0; i < currentSize; i++) {
             storage[i] = null;
         }
         currentSize = 0;
     }
 
-    void save(Resume r) {
+    public void save(Resume r) {
         boolean notFound = true;
         for (int i = 0; i < currentSize; i++) {
-            if (storage[i].uuid.equals(r.uuid)) {
+            if (storage[i].getUuid().equals(r.getUuid())) {
                 notFound = false;
                 System.out.println(r + " was already added to the system");
             }
@@ -27,20 +31,20 @@ public class ArrayStorage {
         }
     }
 
-    Resume get(String uuid) {
+    public Resume get(String uuid) {
         for (int i = 0; i < currentSize; i++) {
-            if (storage[i].uuid.equals(uuid)) {
+            if (storage[i].getUuid().equals(uuid)) {
                 return storage[i];
             }
         }
         return null;
     }
 
-    void delete(String uuid) {
+    public void delete(String uuid) {
         int index = -1;
         boolean uuidFound = false;
         for (int i = 0; i < currentSize; i++) {
-            if (storage[i].uuid == uuid) {
+            if (storage[i].getUuid() == uuid) {
                 index = i;
                 uuidFound = true;
             }
@@ -58,7 +62,7 @@ public class ArrayStorage {
     /**
      * @return array, contains only Resumes in storage (without null)
      */
-    Resume[] getAll() {
+    public Resume[] getAll() {
         Resume[] allResume = new Resume[currentSize];
         for (int i = 0; i < currentSize; i++) {
             allResume[i] = storage[i];
@@ -66,7 +70,7 @@ public class ArrayStorage {
         return allResume;
     }
 
-    int size() {
+    public int size() {
         return currentSize;
     }
 }
